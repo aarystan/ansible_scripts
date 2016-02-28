@@ -1,0 +1,13 @@
+---
+- hosts: all
+  tasks:
+    - name: Installing mysql-client db server
+      apt: pkg=mysql-client state=installed update_cache=false
+    - name: Installing mysql-server db server
+      apt: pkg=mysql-server state=installed update_cache=false
+      notify:
+        - start mysql
+
+  handlers:
+    - name: start mysql
+      service: name=mysql state=started
